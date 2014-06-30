@@ -26,17 +26,19 @@ public class Tool {
 	}
 	
 	private static void write(Properties pro) throws FileNotFoundException, IOException{
-		
-		pro.store(new FileOutputStream(path),"");
+		//String p = Thread.currentThread().getContextClassLoader().getResource("").toString()+File.separator+path;
+		String p = path;
+		pro.store(new FileOutputStream(p),"");
 	}
 	public static String path = "users.properties";
 	private static String[] getUsers(){
 		String[] names ={
 			"荣卫建__王岳"	,
 			"朱文斌",
-			"马桂霞",
+			"马桂霞||女孕",
 			"徐新龙",
-			"张则前"
+			"张则前",
+			"牛丽瑞||女"
 				
 		};
 		return names;

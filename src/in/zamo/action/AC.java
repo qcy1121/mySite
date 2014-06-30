@@ -4,6 +4,7 @@ import in.zamo.Bean.People;
 import in.zamo.service.Service;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -50,8 +51,21 @@ public class AC extends HttpServlet {
 //			session.setAttribute("em"+emId, em);
 //			url="/pages/yuangong.jsp";
 //		}		
+		String json = "";
 		RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 		dispatcher.forward(req, resp);
+		
+		
+		resp.setContentType("text/html");
+		resp.getWriter().write(json);
+		
+		
+		resp.setContentType("text/plain;charset=utf-8");
+	        req.setCharacterEncoding("utf-8");
+	        PrintWriter out = resp.getWriter();
+	        String data = "[{name:\"胡阳\",age:24},{name:\"胡阳\",age:23}]";//构建的json数据
+	        out.println(data);
+
 	}
 	
 	private boolean isEmpty(String str){
