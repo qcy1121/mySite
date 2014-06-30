@@ -44,8 +44,7 @@
             
        </div>
     
-    <script>
-    </script>
+    <div id="info" style="display:none"><%=response.get("info") %></div>
 
     <script>
     JSRun();

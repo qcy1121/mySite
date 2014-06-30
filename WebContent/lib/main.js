@@ -19,7 +19,7 @@ function loadMsg(){
 	           ];
 	var msg = [];
 	var start = '<span class="say">',
-		blank = '<span style="visibility:hidden;padding-left:5px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>',
+		blank = '<span style="visibility:hidden;">&nbsp;&nbsp;</span>',
 		blacks = '<span class="black">',
 		blacke = '</span>',
 		end ='</span><br>';
