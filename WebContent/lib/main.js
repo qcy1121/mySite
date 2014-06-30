@@ -3,23 +3,55 @@ function JSRun(){
 	
 }
 function loadMsg(){
-	var $code = $("#code");
-	var msg = [
-	       "    不经意相识, 或许是缘分，或许是注定的。"
+	var $code = $("#code"),$info = $("#info");
+	var info = $info.html();
+	if(info)$info.remove();
+	info = JSON.parse(info);
+	//var day = 
+	var msgs = [
+	       "敬邀: "+info.title,
+	       "||谨定于公历||2014年7月5号（周六）中午11点	",
+	       "在||丰收日联洋广场店（浦东新区 芳甸路300号联洋广场A区4楼近迎春路）||link",
+	       "举办喜宴。",
+	       "||从大学时的相恋，到如今终于修成正果。带着满心欢喜，敬备喜筵，恭请阁下光临！",
+	       //todo。。。。。
 	       
 	           ];
-	var msgs = [];
-	for(var i in msg){
-		var s = msg[i];
-		msgs.push('<span class="say"><span style="visibility:hidden;padding-left:40px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
-		msgs.push(s);
-		msgs.push('</span><br>');
-		msgs.push('<span class="say">');
-		msgs.push(s);
-		msgs.push('</span><br>');
+	var msg = [];
+	var start = '<span class="say">',
+		blank = '<span style="visibility:hidden;padding-left:5px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>',
+		blacks = '<span class="black">',
+		blacke = '</span>',
+		end ='</span><br>';
+	for(var i in msgs){
+		var s = msgs[i], arr = s.split("||");
+		msg.push(start);
+		var flag = arr[2]=='link';
+		if(!arr[0]){(msg.push(blank),msg.push(arr[1]),arr[2]&&arr[2]!='link'&&(msg.push(blacks),msg.push(arr[2]),msg.push(blacke)))}
+		else{
+			msg.push(arr[0]);
+			arr[1]&&msg.push(blacks),msg.push(arr[1]),msg.push(blacke);
+		}
+		msg.push(end);
 	}
-	$code.html(msgs.join(" "));
+	msg.push(start);
+	msg.push('<span class="space"></span>');
+	msg.push('-- 曲春屹 王林 敬上');
+	msg.push(end);
+	$code.html(msg.join(" "));
 	runCanvas();
+}
+function hoverHandle(evt){
+	
+}
+
+function getDays(){
+	var together = new Date();
+    together.setFullYear(2008, 03, 31); 			//时间年月日
+    together.setHours(12);						//小时	
+    together.setMinutes(00);					//分钟
+    together.setSeconds(0);					//秒前一位
+    together.setMilliseconds(2);	
 }
 
 function runCanvas(){

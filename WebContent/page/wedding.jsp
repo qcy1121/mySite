@@ -44,7 +44,8 @@
             
        </div>
     
-    <div id="info" style="display:none">{"title":"测试"}</div>
+    <script>
+    </script>
 
     <script>
     JSRun();
