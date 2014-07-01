@@ -33,7 +33,7 @@ function loadMsg(){
 	runCanvas();
 	$("#wrap").attr("index",9999);
 	var $link = $("#link").parent();
-	$link.attr("title","从9号线杨高中路站出发，步行1.4公里。可从上海科技馆做184路，或世纪公园坐花木1路");
+	$link.attr("title","从9号线杨高中路站出发，步行1.4公里，有点小远。也可从上海科技馆坐184路，或世纪公园坐花木1路");
 	//$link.on('click',function(e){console.log('click');showMap(e);}).on('mousedown',function(e){showMap(e);console.log("mousedown");});
 	//$("#main").on("click",function(e){showMap(e);});
 	
