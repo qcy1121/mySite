@@ -46,11 +46,11 @@ public class People {
 	
 	public String toJson(){
 		StringBuilder sb = new StringBuilder("{");
-		sb.append("title:").append(names.get(0)).append(isMale?" 先生":" 女士");
+		sb.append("\"title\":\"").append(names.get(0)).append(isMale?" 先生":" 女士");
 		if(names.size()>1){
 			sb.append(" 和 ").append(names.get(1)).append(" 女士");
 		}
-		sb.append(", hasBaby:").append(hasBaby);
+		sb.append("\", \"hasBaby\":").append(hasBaby);
 		sb.append("}");
 		return sb.toString();
 		

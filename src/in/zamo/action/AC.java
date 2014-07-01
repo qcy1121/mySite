@@ -4,7 +4,11 @@ import in.zamo.Bean.People;
 import in.zamo.service.Service;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -24,49 +28,54 @@ public class AC extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		doAction(req,resp);
-		super.doGet(req, resp);
+		//super.doGet(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		Service.SaveLog("start");
 		doAction(req,resp);
-		super.doPost(req, resp);
+		Service.SaveLog("end");
+		//super.doPost(req, resp);
 	}
 	
-	private void doAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+	private void doAction(HttpServletRequest req, HttpServletResponse resp){
 		String key = (String) req.getAttribute("key");
 		if(isEmpty(key))key = req.getParameter("key");
-		
-		if(isEmpty(key)){
-			
-		}else{
-			
+		String url="./404.html";	
+		if(!isEmpty(key)){
+			People p = loadUser(key);
+			if(p!=null){
+				url = "./wedding.jsp";
+				req.setAttribute("info", p.toJson());
+			}
 		}
-		String url="/pages/error.jsp";	
-//		HttpSession session = request.getSession();
-//		if(emId!=null && !"".equals(emId.trim())){
-//			Employee em= service.getEm(emId);
-//			request.setAttribute("emId", emId);
-//			session.setAttribute("em"+emId, em);
-//			url="/pages/yuangong.jsp";
-//		}		
-		String json = "";
+
+		saveLog(req,key);
 		RequestDispatcher dispatcher = req.getRequestDispatcher(url);
-		dispatcher.forward(req, resp);
+		try {
+			//resp.sendRedirect(url);
+			dispatcher.forward(req, resp);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		
-		resp.setContentType("text/html");
-		resp.getWriter().write(json);
-		
-		
-		resp.setContentType("text/plain;charset=utf-8");
-	        req.setCharacterEncoding("utf-8");
-	        PrintWriter out = resp.getWriter();
-	        String data = "[{name:\"胡阳\",age:24},{name:\"胡阳\",age:23}]";//构建的json数据
-	        out.println(data);
 
 	}
+	
+	private void saveLog(HttpServletRequest req,String key){
+		@SuppressWarnings("deprecation")
+		String date =  Calendar.getInstance().getTime().toLocaleString();
+		String ip = getRemoteAddress(req);
+		String log = "Date: "+date+" ip: "+ip+" key:"+key;
+		Service.SaveLog(log);
+	}
+	
 	
 	private boolean isEmpty(String str){
 		return str == null||"".equals(str.trim());
@@ -76,5 +85,43 @@ public class AC extends HttpServlet {
 		Map<String, People> map = Service.getUsers();
 		return map.get(key);
 	}
+	
+	public String getRemoteAddress(HttpServletRequest request) {  
+        String ip = request.getHeader("x-forwarded-for");  
+        if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+            ip = request.getHeader("Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+            ip = request.getHeader("WL-Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+            ip = request.getRemoteAddr();  
+        }  
+        return ip;  
+    }  
+  
+//    public String getMACAddress(String ip) {  
+//        String str = "";  
+//        String macAddress = "";  
+//        try {  
+//            Process p = Runtime.getRuntime().exec("nbtstat -A " + ip);  
+//            InputStreamReader ir = new InputStreamReader(p.getInputStream());  
+//            LineNumberReader input = new LineNumberReader(ir);  
+//            for (int i = 1; i < 100; i++) {  
+//                str = input.readLine();  
+//                if (str != null) {  
+//                    if (str.indexOf("MAC Address") > 1) {  
+//                        macAddress = str.substring(  
+//                                str.indexOf("MAC Address") + 14, str.length());  
+//                        break;  
+//                    }  
+//                }  
+//            }  
+//        } catch (IOException e) {  
+//            e.printStackTrace(System.out);  
+//        }  
+//        return macAddress;  
+//    }  
+}  
 
-}
+

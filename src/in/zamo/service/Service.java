@@ -2,8 +2,11 @@ package in.zamo.service;
 
 import in.zamo.Bean.People;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -36,13 +39,30 @@ public class Service {
 		return users;
 	}
 	
+	public static void SaveLog(String log){
+		
+		String path = "./log.log";
+		Write2File(path,log);
+	}
+	private static void Write2File(String path, String content) {
+        try {
+                File f = new File(path);
+                if(!f.exists())f.createNewFile();
+                    BufferedWriter output = new BufferedWriter(new FileWriter(f,true));
+                    output.write(content+"\n");
+                    output.close();
+             
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 	private static Map<String,People> users= null; 
 	
 	public static void main(String[] args){
 		Map<String ,People> map = getUsers();
 		for(String k :map.keySet()){
 			People p = map.get(k);
-			p.Print();
+			SaveLog(p.toJson());
 		}
 	}
 	
