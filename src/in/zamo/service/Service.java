@@ -84,9 +84,12 @@ public class Service {
 		StringBuilder sb = new StringBuilder("");
 		List<String> list = new ArrayList<String>();
 		list.add("敬邀: "+title);
+		list.add("");
 		list.add(bl+"谨定于 公历"+bs+"2014年7月5号"+be+"（"+bs+"周六"+be+"）"+ bs+"中午11点"+be+
-				"在 "+bs+ls+"丰收日联洋广场店（浦东新区 芳甸路300号联洋广场A区4楼近迎春路） "+le+be+" 举办喜宴。");
-		list.add("带着满心欢喜，敬备喜筵，恭请阁下光临!");
+				" , 在 "+bs+ls+"丰收日联洋广场店（浦东新区 芳甸路300号联洋广场A区4楼近迎春路） "+le+be+" 举办喜宴。");
+		list.add("");
+		list.add(bl+"带着满心欢喜，敬备喜筵，恭请阁下光临!");
+		list.add("");
 		for(String s : list){
 			sb.append(ss).append(s).append(se);
 		}

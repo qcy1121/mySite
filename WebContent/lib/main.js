@@ -6,10 +6,10 @@ function loadMsg(){
 	var $code = $("#code"),$info = $("#info");
 	var info = $info.html();
 	if(info)$info.remove();
-	info = JSON.parse(info);
-	var ss = '_ss_',se='_se_',bs='_bs_',be='_be_',ls='_ls_',le='_le_',bl='_bl_';
+	//info = JSON.parse(info);
+	var ss = /_ss_/g,se=/_se_/g,bs=/_bs_/g,be=/_be_/g,ls=/_ls_/g,le=/_le_/g,bl=/_bl_/g;
 	var pss='<span class="say">',pse='</span><br>',pbl='<span style="visibility:hidden;">&nbsp;&nbsp;</span>',
-		pbs= '<span class="black">',pbe='</span>',pls='<a id="link" href="#" >',ple='</a>';
+		pbs= '<span class="black">',pbe='</span>',pls='<a id="link" href="#" onclick="showMap()" >',ple='</a>';
 	var msg = [];
 	info = info.replace(ss,pss).replace(se,pse).replace(bs,pbs).replace(be,pbe).replace(ls,pls).replace(le,ple).replace(bl,pbl);
 	msg.push(info);
@@ -21,16 +21,22 @@ function loadMsg(){
 	var img = new Image();
 	img.src = "./lib/map.jpg";
 	var $map=$("<div class='map' style='display:none' />").append(img);
-	$(body).append($map);
+	$("body").append($map);
 	var showMap=function(e){
-		$map.fadeIn(2);
-		$map.css({top:e.clientX,left:e.clienY});
+		$map.css({display:'block',top:e.clientX,left:e.clientY});
+		$map.fadeIn(2);		
 	},
 	hiddenMap=function(e){
-		$map.fadout(2);
-	}
-	$("#link").on('clic',function(e){return;}).on('hover',function(e){showMap(e);}).on('mouseout',function(e){hiddenMap(e);});
+		$map.fadeOut(2);
+	};
+	$map.on('click',hiddenMap);
 	runCanvas();
+	$("#wrap").attr("index",9999);
+	var $link = $("#link").parent();
+	$link.attr("title","从9号线杨高中路站出发，步行1.4公里。可从上海科技馆做184路，或世纪公园坐花木1路");
+	//$link.on('click',function(e){console.log('click');showMap(e);}).on('mousedown',function(e){showMap(e);console.log("mousedown");});
+	//$("#main").on("click",function(e){showMap(e);});
+	
 }
 function hoverHandle(evt){
 	
@@ -189,26 +195,13 @@ function runCanvas(){
              //   $await(Jscex.Async.sleep(1000));
             //}
         }));
-        var drawImage= function(img){
-        	var ctx = tree.ctx;
-      	  	ctx.drawImage(img, 100, 100);
-        };
-        var moveImage=function(){
-        	var imageObj = new Image();
-        	imageObj.id="heart";
-        	imageObj.onload = function() {
-                drawImage(this);
-              };
-              imageObj.src = '../lib/heart.jpg';
-        	  
-        };
+        
         var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
             $await(growAnimate());
             $await(flowAnimate());
             $await(moveAnimate());
-            
-            moveImage();
+           
             textAnimate().start();
 
             $await(jumpAnimate());
@@ -216,8 +209,4 @@ function runCanvas(){
 
         runAsync().start();
     })();
-}
-
-function showImg(){
-	
 }
