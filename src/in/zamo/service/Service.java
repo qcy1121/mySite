@@ -41,7 +41,6 @@ public class Service {
 	
 	public static void SaveLog(String log){
 		
-		String path = "./log.log";
 		Write2File(path,log);
 	}
 	private static void Write2File(String path, String content) {
@@ -57,13 +56,17 @@ public class Service {
         }
     }
 	private static Map<String,People> users= null; 
-	
+	private static String path = "./log.log";
 	public static void main(String[] args){
 		Map<String ,People> map = getUsers();
 		for(String k :map.keySet()){
 			People p = map.get(k);
 			SaveLog(p.toJson());
 		}
+	}
+
+	public static File getLogFile() {
+		return  new File(path);
 	}
 	
 
