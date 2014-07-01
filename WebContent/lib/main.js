@@ -7,38 +7,29 @@ function loadMsg(){
 	var info = $info.html();
 	if(info)$info.remove();
 	info = JSON.parse(info);
-	//var day = 
-	var msgs = [
-	       "敬邀: "+info.title,
-	       "||谨定于公历||2014年7月5号（周六）中午11点	",
-	       "在||丰收日联洋广场店（浦东新区 芳甸路300号联洋广场A区4楼近迎春路）||link",
-	       "举办喜宴。",
-	       "||从大学时的相恋，到如今终于修成正果。带着满心欢喜，敬备喜筵，恭请阁下光临！",
-	       //todo。。。。。
-	       
-	           ];
+	var ss = '_ss_',se='_se_',bs='_bs_',be='_be_',ls='_ls_',le='_le_',bl='_bl_';
+	var pss='<span class="say">',pse='</span><br>',pbl='<span style="visibility:hidden;">&nbsp;&nbsp;</span>',
+		pbs= '<span class="black">',pbe='</span>',pls='<a id="link" href="#" >',ple='</a>';
 	var msg = [];
-	var start = '<span class="say">',
-		blank = '<span style="visibility:hidden;">&nbsp;&nbsp;</span>',
-		blacks = '<span class="black">',
-		blacke = '</span>',
-		end ='</span><br>';
-	for(var i in msgs){
-		var s = msgs[i], arr = s.split("||");
-		msg.push(start);
-		var flag = arr[2]=='link';
-		if(!arr[0]){(msg.push(blank),msg.push(arr[1]),arr[2]&&arr[2]!='link'&&(msg.push(blacks),msg.push(arr[2]),msg.push(blacke)))}
-		else{
-			msg.push(arr[0]);
-			arr[1]&&msg.push(blacks),msg.push(arr[1]),msg.push(blacke);
-		}
-		msg.push(end);
-	}
-	msg.push(start);
+	info = info.replace(ss,pss).replace(se,pse).replace(bs,pbs).replace(be,pbe).replace(ls,pls).replace(le,ple).replace(bl,pbl);
+	msg.push(info);
+	msg.push(pss);
 	msg.push('<span class="space"></span>');
 	msg.push('-- 曲春屹 王林 敬上');
-	msg.push(end);
+	msg.push(pse);
 	$code.html(msg.join(" "));
+	var img = new Image();
+	img.src = "./lib/map.jpg";
+	var $map=$("<div class='map' style='display:none' />").append(img);
+	$(body).append($map);
+	var showMap=function(e){
+		$map.fadeIn(2);
+		$map.css({top:e.clientX,left:e.clienY});
+	},
+	hiddenMap=function(e){
+		$map.fadout(2);
+	}
+	$("#link").on('clic',function(e){return;}).on('hover',function(e){showMap(e);}).on('mouseout',function(e){hiddenMap(e);});
 	runCanvas();
 }
 function hoverHandle(evt){

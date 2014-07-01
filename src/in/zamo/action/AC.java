@@ -48,7 +48,8 @@ public class AC extends HttpServlet {
 			People p = loadUser(key);
 			if(p!=null){
 				url = "./wedding.jsp";
-				req.setAttribute("info", p.toJson());
+				//req.setAttribute("info", p.toJson());
+				req.setAttribute("info",Service.getMessage(p));
 			}
 		}
 

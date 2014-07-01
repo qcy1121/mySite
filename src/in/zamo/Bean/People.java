@@ -46,20 +46,32 @@ public class People {
 	
 	public String toJson(){
 		StringBuilder sb = new StringBuilder("{");
-		sb.append("\"title\":\"").append(names.get(0)).append(isMale?" 先生":" 女士");
-		if(names.size()>1){
-			sb.append(" 和 ").append(names.get(1)).append(" 女士");
-		}
+		sb.append("\"title\":\"").append(getTitle());
 		sb.append("\", \"hasBaby\":").append(hasBaby);
 		sb.append("}");
 		return sb.toString();
-		
-		
+	}
+	
+	public String getTitle(){
+		StringBuilder sb = new StringBuilder("");
+		sb.append(names.get(0)).append(isMale?" 先生":" 女士");
+		if(names.size()>1){
+			sb.append(" 和 ").append(names.get(1)).append(" 女士");
+		}
+		return sb.toString();
 	}
 	
 	public void Print(){
 		
 		System.out.println("key: "+key+"  "+toJson());
 	
+	}
+	public String getTitle(String bs, String be) {
+		StringBuilder sb = new StringBuilder("");
+		sb.append(bs).append(names.get(0)).append(be).append(isMale?" 先生":" 女士");
+		if(names.size()>1){
+			sb.append(" 和 ").append(bs).append(names.get(1)).append(be).append(" 女士");
+		}
+		return sb.toString();
 	}
 }

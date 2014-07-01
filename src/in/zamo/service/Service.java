@@ -61,12 +61,37 @@ public class Service {
 		Map<String ,People> map = getUsers();
 		for(String k :map.keySet()){
 			People p = map.get(k);
-			SaveLog(p.toJson());
+			SaveLog("key: " + p.getKey()+ p.toJson());
 		}
 	}
 
 	public static File getLogFile() {
 		return  new File(path);
+	}
+
+	public static String getMessage(People p) {
+		String bs="_bs_",be="_be_",tt="_title_";
+		String title = p.getTitle(bs,be),msg = getMsg();
+		msg = msg.replace(tt, title);
+		return msg;
+		
+	}
+	
+	private static String msg =null;
+	private static String getMsg(){
+		if(msg!=null)return msg;
+		String ss = "_ss_",se="_se_",bs="_bs_",be="_be_",ls="_ls_",le="_le_",bl="_bl_",title="_title_";
+		StringBuilder sb = new StringBuilder("");
+		List<String> list = new ArrayList<String>();
+		list.add("敬邀: "+title);
+		list.add(bl+"谨定于 公历"+bs+"2014年7月5号"+be+"（"+bs+"周六"+be+"）"+ bs+"中午11点"+be+
+				"在 "+bs+ls+"丰收日联洋广场店（浦东新区 芳甸路300号联洋广场A区4楼近迎春路） "+le+be+" 举办喜宴。");
+		list.add("带着满心欢喜，敬备喜筵，恭请阁下光临!");
+		for(String s : list){
+			sb.append(ss).append(s).append(se);
+		}
+		
+		return sb.toString();
 	}
 	
 
