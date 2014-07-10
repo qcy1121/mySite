@@ -45,7 +45,7 @@
             
        </div>
     
-    <div id="info" style="display:none"><%=request.getAttribute("info") %></div>
+    <div id="info" style="display:none">${message }</div>
 
     <script>
     JSRun();
