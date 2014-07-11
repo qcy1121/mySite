@@ -62,13 +62,13 @@
     </servlet>  
     <servlet-mapping>  
         <servlet-name>dispatcher</servlet-name>  
-        <url-pattern>/rest</url-pattern>  
+        <url-pattern>/rest/*</url-pattern>  
     </servlet-mapping>  
-    <listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
+<!--     <listener> -->
+<!-- 		<listener-class> -->
+<!-- 			org.springframework.web.context.ContextLoaderListener -->
+<!-- 		</listener-class> -->
+<!-- 	</listener> -->
   <error-page>
     <error-code>404</error-code>
    <location>/404.html</location>
