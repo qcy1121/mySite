@@ -15,6 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springversion>3.2.9.RELEASE</springversion>
 		 <junitversion>4.7</junitversion>  
+		 <dojo.version>1.9.3</dojo.version>
 	</properties>
 
 	<dependencies>
@@ -136,7 +137,22 @@
             <version>${springversion}</version>  
             <type>jar</type>  
             <scope>compile</scope>  
-        </dependency>  
+        </dependency> 
+        <!--  todo not work -->
+        <!-- <dependency>
+	<groupId>org.webjars</groupId>
+	<artifactId>dgrid</artifactId>
+	<version>0.3.14</version>
+</dependency> -->
+        
+	    <dependency>
+			<groupId>org.dojotoolkit</groupId>
+			<artifactId>dojo</artifactId>
+			<version>${dojo.version}</version>
+			<type>pom</type>
+		</dependency>
+		
+         
         <!-- 
         <dependency>  
             <groupId>org.springframework</groupId>  
@@ -225,7 +241,33 @@
 				</configuration>
 			</plugin>
 
-
+			<plugin>  
+			    <groupId>org.codehaus.cargo</groupId>  
+			    <artifactId>cargo-maven2-plugin</artifactId>  
+			    <version>1.4.0</version>  
+			    <configuration>  
+			        <container>  
+			            <containerId>tomcat7x</containerId>  
+			            <home>D:\myspaces\worktools\apache-tomcat-7.0.37</home>  
+			        </container>  
+			        <configuration>  
+			            <!-- standalone模式部署应用至本地Web容器 -->  
+			            <!--   
+			            <type>standalone</type>   
+			            <home>${project.build.directory}\tomcat7x</home>   
+			            -->  
+			            <!--  cargo.servlet.port属性修改监听端口 -->  
+			            <!--                            
+			            <properties>  
+			                <cargo.servlet.port>80<cargo.servlet.port>  
+			            </properties>  
+			            -->            
+			            <!-- existing模式部署应用至本地Web容器 -->  
+			            <type>existing</type>   
+			            <home>C:\apache-tomcat-6.0.35</home>   
+			        </configuration>  
+			    </configuration>  
+			</plugin> 
 			<!-- 测试覆盖率报告 --> <!-- mvn cobertura:cobertura 产生测试覆盖率报告 -->
 			<plugin>
 				<groupId>maven</groupId>
@@ -260,6 +302,67 @@
 				<goal>shade</goal> </goals> <configuration> <transformers> <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"> 
 				<mainClass>in.zamo.service.Tool</mainClass> </transformer> </transformers> 
 				</configuration> </execution> </executions> </plugin> -->
+				
+				
+				<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>wagon-maven-plugin</artifactId>
+			<version>1.0-beta-1</version>
+			<executions>
+				<execution>
+					<id>download-dojo</id>
+					<phase>generate-resources</phase>
+					<goals>
+						<goal>download-single</goal>
+					</goals>
+					<configuration>
+						<serverId>dojotoolkit</serverId>
+						<url>
+							http://download.dojotoolkit.org/release-${dojo.version}
+						</url>
+						<fromFile>dojo-release-${dojo.version}.tar.gz</fromFile>
+						<toDir>${project.build.directory}</toDir>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<configuration>
+							<target>
+								<untar compression="gzip"
+									src="${project.build.directory}/dojo-release-${dojo.version}.tar.gz"
+									dest="${project.build.directory}" />
+							</target>
+						</configuration>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/dojo.xml</descriptor>
+					</descriptors>
+					<tarLongFileMode>gnu</tarLongFileMode>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 	</build>
