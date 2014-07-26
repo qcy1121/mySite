@@ -16,6 +16,7 @@
 		<springversion>3.2.9.RELEASE</springversion>
 		 <junitversion>4.7</junitversion>  
 		 <dojo.version>1.9.3</dojo.version>
+		 <project.deploy.home>C:\java\apache-tomcat-7.0.47</project.deploy.home>
 	</properties>
 
 	<dependencies>
@@ -248,7 +249,7 @@
 			    <configuration>  
 			        <container>  
 			            <containerId>tomcat7x</containerId>  
-			            <home>D:\myspaces\worktools\apache-tomcat-7.0.37</home>  
+			            <home>${project.deploy.home}</home>  
 			        </container>  
 			        <configuration>  
 			            <!-- standalone模式部署应用至本地Web容器 -->  
@@ -264,7 +265,7 @@
 			            -->            
 			            <!-- existing模式部署应用至本地Web容器 -->  
 			            <type>existing</type>   
-			            <home>C:\apache-tomcat-6.0.35</home>   
+			            <home>${project.deploy.home}</home>   
 			        </configuration>  
 			    </configuration>  
 			</plugin> 
@@ -303,7 +304,7 @@
 				<mainClass>in.zamo.service.Tool</mainClass> </transformer> </transformers> 
 				</configuration> </execution> </executions> </plugin> -->
 				
-				
+				<!-- 
 				<plugin>
 			<groupId>org.codehaus.mojo</groupId>
 			<artifactId>wagon-maven-plugin</artifactId>
@@ -321,7 +322,7 @@
 							http://download.dojotoolkit.org/release-${dojo.version}
 						</url>
 						<fromFile>dojo-release-${dojo.version}.tar.gz</fromFile>
-						<toDir>${project.build.directory}</toDir>
+						<toDir>${project.build.directory}/lib</toDir>
 					</configuration>
 				</execution>
 			</executions>
@@ -336,7 +337,7 @@
 							<target>
 								<untar compression="gzip"
 									src="${project.build.directory}/dojo-release-${dojo.version}.tar.gz"
-									dest="${project.build.directory}" />
+									dest="${project.build.directory}/src/main/webapp/jsLib" />
 							</target>
 						</configuration>
 						<phase>process-resources</phase>
@@ -346,23 +347,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/dojo.xml</descriptor>
-					</descriptors>
-					<tarLongFileMode>gnu</tarLongFileMode>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			 -->
 		</plugins>
 
 	</build>
