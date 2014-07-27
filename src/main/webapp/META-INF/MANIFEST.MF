@@ -1,8 +1,7 @@
 Manifest-Version: 1.0
-Class-Path: aopalliance-1.0.jar avalon-framework-4.1.3.jar commons-col
- lections-3.1.jar commons-logging-1.1.jar log4j-1.2.12.jar logkit-1.0.
- 1.jar  spring-aop-3.2.9.RELEASE.jar spring-beans-3
- .2.9.RELEASE.jar spring-context-3.2.9.RELEASE.jar spring-core-3.2.9.R
- ELEASE.jar spring-expression-3.2.9.RELEASE.jar spring-web-3.2.9.RELEA
- SE.jar spring-webmvc-3.2.9.RELEASE.jar
+Class-Path: aopalliance-1.0.jar commons-collections-3.1.jar commons-lo
+ gging-1.1.3.jar dojo-1.9.3.pom spring-aop-3.2.9.RELEASE.jar spring-be
+ ans-3.2.9.RELEASE.jar spring-context-3.2.9.RELEASE.jar spring-core-3.
+ 2.9.RELEASE.jar spring-expression-3.2.9.RELEASE.jar spring-web-3.2.9.
+ RELEASE.jar spring-webmvc-3.2.9.RELEASE.jar
 

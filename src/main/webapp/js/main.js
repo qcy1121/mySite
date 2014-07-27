@@ -1,0 +1,1 @@
+window.location.replace("apps/picture_matching/index.html");
