@@ -26,8 +26,6 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
-
-
 		<!--<dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
 			<version>${junitversion}</version> <scope>test</scope> </dependency> -->
 			<!-- 
