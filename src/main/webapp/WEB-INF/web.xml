@@ -23,9 +23,9 @@
     <context-param>  
         <param-name>webAppRootKey</param-name>  
         <param-value>maven.example.root</param-value>  
-    </context-param>  
-  
-    <!-- Spring的log4j监听器 -->  
+    </context-param>
+
+    <!-- Spring的log4j监听器 -->
     <listener>  
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
     </listener>  
