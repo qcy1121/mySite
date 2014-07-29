@@ -19,7 +19,6 @@
 		 <project.deploy.home>C:\java\apache-tomcat-7.0.47</project.deploy.home>
 	</properties>
 
-
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
