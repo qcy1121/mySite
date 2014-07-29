@@ -9,6 +9,7 @@
 	<packaging>war</packaging>
 
 	<name>site</name>
+	
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
